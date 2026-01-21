@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blagoj Dimitriev - SEO Specialist & Digital Marketing Professional">
+    <title>Blagoj Dimitriev | SEO Specialist & Digital Marketing</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animated Gradient Background */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Dark mode gradient */
+        .dark .gradient-bg {
+            background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #533483);
+            background-size: 400% 400%;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Fade In Up Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Stagger animations */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+
+        /* Glow effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.7), 0 0 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .dark .glow {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .dark .glow:hover {
+            box-shadow: 0 0 40px rgba(102, 126, 234, 0.9), 0 0 80px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Dark mode styles */
+        .dark {
+            background-color: #0f172a;
+            color: #ffffff;
+        }
+
+        body {
+            background-color: #0f172a;
+        }
+
+        /* Button hover effects */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5), 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #7a8ef0 0%, #8557ae 100%);
+        }
+
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3), 0 0 0 1px rgba(102, 126, 234, 0.1);
+        }
+
+        .card-hover:hover::before {
+            opacity: 1;
+        }
+
+        .dark .card-hover:hover {
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4), 0 0 80px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Skill bar animation */
+        .skill-bar {
+            width: 0;
+            transition: width 1.5s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .skill-bar.animate {
+            width: var(--skill-width);
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Section title styling */
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 2px;
+        }
+    </style>
+
+    <script>
+        // Tailwind config
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#667eea',
+                        secondary: '#764ba2',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="dark min-h-screen bg-gray-900">
+
+    <!-- Particles Container -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white border-opacity-10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#home" class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    BD
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-purple-400 transition">Home</a>
+                    <a href="#about" class="nav-link text-white hover:text-purple-400 transition">About</a>
+                    <a href="#experience" class="nav-link text-white hover:text-purple-400 transition">Experience</a>
+                    <a href="#skills" class="nav-link text-white hover:text-purple-400 transition">Skills</a>
+                    <a href="#contact" class="nav-link text-white hover:text-purple-400 transition">Contact</a>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg glass hover:glow transition">
+                        <i class="fas fa-moon text-white"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
+                <a href="#home" class="block text-white hover:text-purple-400 transition">Home</a>
+                <a href="#about" class="block text-white hover:text-purple-400 transition">About</a>
+                <a href="#experience" class="block text-white hover:text-purple-400 transition">Experience</a>
+                <a href="#skills" class="block text-white hover:text-purple-400 transition">Skills</a>
+                <a href="#contact" class="block text-white hover:text-purple-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="container mx-auto px-6 z-10">
+            <div class="text-center">
+                <div class="mb-8 opacity-0 fade-in-up stagger-1">
+                    <div class="w-48 h-48 mx-auto rounded-full glass glow p-1 float-animation relative">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 opacity-75 blur-sm"></div>
+                        <div class="relative w-full h-full rounded-full bg-gray-900 p-2">
+                            <img src="profilepicture.jpg" alt="Blagoj Dimitriev" class="w-full h-full rounded-full object-cover ring-4 ring-purple-500/30">
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 opacity-0 fade-in-up stagger-2">
+                    <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                        Blagoj Dimitriev
+                    </span>
+                </h1>
+
+                <p class="text-2xl md:text-3xl text-gray-300 mb-4 opacity-0 fade-in-up stagger-3">
+                    SEO Specialist & Digital Marketing Professional
+                </p>
+
+                <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto opacity-0 fade-in-up stagger-4">
+                    Passionate about driving results through strategic SEO and staying ahead of digital marketing trends
+                </p>
+
+                <div class="flex flex-wrap gap-4 justify-center mb-8 opacity-0 fade-in-up stagger-5">
+                    <a href="#contact" class="btn-primary px-8 py-3 rounded-full text-white font-semibold">
+                        Get In Touch
+                    </a>
+                </div>
+
+                <div class="flex gap-6 justify-center opacity-0 fade-in-up stagger-5">
+                    <a href="https://www.linkedin.com/in/blagojdimitriev/" target="_blank" class="glass w-12 h-12 rounded-full flex items-center justify-center hover:glow transition">
+                        <i class="fab fa-linkedin-in text-white text-xl"></i>
+                    </a>
+                    <a href="mailto:dimitrievblagoj@icloud.com" class="glass w-12 h-12 rounded-full flex items-center justify-center hover:glow transition">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about">
+                <i class="fas fa-chevron-down text-white text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl md:text-5xl font-bold text-center mb-20 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                About Me
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass rounded-3xl p-8 card-hover">
+                    <div class="rounded-2xl overflow-hidden bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center" style="height: 500px;">
+                        <img src="profilepicture.jpg" alt="Blagoj Dimitriev" class="w-full h-full object-contain">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        A highly motivated and results-driven individual with experience in SEO and a passion for staying current with the latest trends and technologies in the digital marketing field.
+                    </p>
+
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        Possessing excellent communication and interpersonal skills, as well as the ability to work effectively both independently and as part of a team.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-6">
+                        <div class="glass rounded-2xl p-6 text-center card-hover relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl"></div>
+                            <div class="relative z-10">
+                                <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-briefcase text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent mb-2">4+</h3>
+                                <p class="text-gray-400 font-medium">Positions Held</p>
+                            </div>
+                        </div>
+                        <div class="glass rounded-2xl p-6 text-center card-hover relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-pink-500/10 rounded-full blur-2xl"></div>
+                            <div class="relative z-10">
+                                <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold bg-gradient-to-r from-pink-400 to-pink-300 bg-clip-text text-transparent mb-2">Law</h3>
+                                <p class="text-gray-400 font-medium">Degree</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl md:text-5xl font-bold text-center mb-20 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Work Experience
+            </h2>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- Experience 1 -->
+                <div class="glass rounded-3xl p-8 card-hover border-l-4 border-purple-500">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Search Visibility Specialist</h3>
+                            <p class="text-purple-400 font-semibold">Megantic</p>
+                        </div>
+                        <span class="bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2 rounded-full text-sm text-white mt-2 md:mt-0 inline-block font-semibold shadow-lg">Current</span>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Responsible for executing and implementing SEO strategies to improve search engine rankings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Conduct keyword research, analyze website data, and implement on-page and off-page SEO tactics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Collaborate with clients to develop tailored SEO strategies to meet their business goals</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="glass rounded-3xl p-8 card-hover border-l-4 border-pink-500">
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-bold text-white mb-2">Sales Representative</h3>
+                        <p class="text-purple-400 font-semibold">ESKON</p>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Promoted and sold company products with focus on building strong customer relationships</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Conducted market research to identify new sales opportunities and develop targeted strategies</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Experience 3 -->
+                <div class="glass rounded-3xl p-8 card-hover border-l-4 border-blue-500">
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-bold text-white mb-2">Intern</h3>
+                        <p class="text-purple-400 font-semibold">Notary Office</p>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Gained hands-on experience in legal document preparation and client communication</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Contributed to smooth office operations through organizing files and administrative tasks</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Experience 4 -->
+                <div class="glass rounded-3xl p-8 card-hover border-l-4 border-cyan-500">
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-bold text-white mb-2">Crew Member</h3>
+                        <p class="text-purple-400 font-semibold">Burger King, Hamburg, Germany</p>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Provided excellent customer service in a fast-paced environment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-purple-400 mt-1 mr-3"></i>
+                            <span>Collaborated with team members to ensure smooth restaurant operations</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl md:text-5xl font-bold text-center mb-20 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Skills & Expertise
+            </h2>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <!-- Technical Skills -->
+                    <div class="glass rounded-3xl p-8 card-hover">
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                            <i class="fas fa-code text-purple-400 mr-3"></i>
+                            Technical Skills
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-3">
+                                    <span class="text-gray-300 font-medium">Technical SEO</span>
+                                    <span class="text-purple-400 font-semibold">Expert</span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-4 shadow-inner">
+                                    <div class="skill-bar bg-gradient-to-r from-purple-500 via-purple-400 to-pink-500 h-4 rounded-full shadow-lg" style="--skill-width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-3">
+                                    <span class="text-gray-300 font-medium">Google Analytics</span>
+                                    <span class="text-purple-400 font-semibold">Advanced</span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-4 shadow-inner">
+                                    <div class="skill-bar bg-gradient-to-r from-purple-500 via-purple-400 to-pink-500 h-4 rounded-full shadow-lg" style="--skill-width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-3">
+                                    <span class="text-gray-300 font-medium">HTML, CSS, JavaScript</span>
+                                    <span class="text-purple-400 font-semibold">Intermediate</span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-4 shadow-inner">
+                                    <div class="skill-bar bg-gradient-to-r from-purple-500 via-purple-400 to-pink-500 h-4 rounded-full shadow-lg" style="--skill-width: 70%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-3">
+                                    <span class="text-gray-300 font-medium">Keyword Research</span>
+                                    <span class="text-purple-400 font-semibold">Expert</span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-4 shadow-inner">
+                                    <div class="skill-bar bg-gradient-to-r from-purple-500 via-purple-400 to-pink-500 h-4 rounded-full shadow-lg" style="--skill-width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soft Skills -->
+                    <div class="glass rounded-3xl p-8 card-hover">
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                            <i class="fas fa-users text-pink-400 mr-3"></i>
+                            Soft Skills
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-4 bg-white bg-opacity-5 rounded-xl hover:bg-opacity-10 transition border border-green-400/20 hover:border-green-400/40">
+                                <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                                </div>
+                                <span class="text-gray-300 font-medium">Excellent Communication</span>
+                            </div>
+                            <div class="flex items-center p-4 bg-white bg-opacity-5 rounded-xl hover:bg-opacity-10 transition border border-blue-400/20 hover:border-blue-400/40">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-blue-400 text-xl"></i>
+                                </div>
+                                <span class="text-gray-300 font-medium">Team Collaboration</span>
+                            </div>
+                            <div class="flex items-center p-4 bg-white bg-opacity-5 rounded-xl hover:bg-opacity-10 transition border border-purple-400/20 hover:border-purple-400/40">
+                                <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-purple-400 text-xl"></i>
+                                </div>
+                                <span class="text-gray-300 font-medium">Time Management</span>
+                            </div>
+                            <div class="flex items-center p-4 bg-white bg-opacity-5 rounded-xl hover:bg-opacity-10 transition border border-pink-400/20 hover:border-pink-400/40">
+                                <div class="w-10 h-10 rounded-full bg-pink-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-pink-400 text-xl"></i>
+                                </div>
+                                <span class="text-gray-300 font-medium">Adaptability</span>
+                            </div>
+                            <div class="flex items-center p-4 bg-white bg-opacity-5 rounded-xl hover:bg-opacity-10 transition border border-cyan-400/20 hover:border-cyan-400/40">
+                                <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-cyan-400 text-xl"></i>
+                                </div>
+                                <span class="text-gray-300 font-medium">Problem Solving</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="glass rounded-3xl p-8 card-hover border-l-4 border-purple-500">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+                            <i class="fas fa-graduation-cap text-purple-400"></i>
+                        </div>
+                        Education
+                    </h3>
+                    <div class="flex items-start">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mr-4 flex-shrink-0 shadow-lg">
+                            <i class="fas fa-university text-white text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Law Degree</h4>
+                            <p class="text-purple-400 font-semibold mb-2">Iustinianus Primus UKIM Skopje</p>
+                            <p class="text-gray-300 leading-relaxed">Currently in final year of college studies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl md:text-5xl font-bold text-center mb-20 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Get In Touch
+            </h2>
+
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6">Let's Connect</h3>
+                        <p class="text-gray-300 mb-8">
+                            I'm always open to discussing new opportunities, collaborations, or just having a chat about digital marketing and SEO.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="glass rounded-2xl p-6 flex items-center card-hover border border-purple-500/20 hover:border-purple-500/40 transition-all">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mr-4 shadow-lg">
+                                <i class="fas fa-envelope text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm font-medium mb-1">Email</p>
+                                <a href="mailto:dimitrievblagoj@icloud.com" class="text-white font-semibold hover:text-purple-400 transition">
+                                    dimitrievblagoj@icloud.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="glass rounded-2xl p-6 flex items-center card-hover border border-pink-500/20 hover:border-pink-500/40 transition-all">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mr-4 shadow-lg">
+                                <i class="fas fa-phone text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm font-medium mb-1">Phone</p>
+                                <a href="tel:+38975256877" class="text-white font-semibold hover:text-purple-400 transition">
+                                    +389 75 256 877
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <h4 class="text-white font-semibold mb-4">Follow Me</h4>
+                        <div class="flex gap-4">
+                            <a href="https://www.linkedin.com/in/blagoj-dimitriev/" target="_blank" class="glass w-12 h-12 rounded-full flex items-center justify-center hover:glow transition">
+                                <i class="fab fa-linkedin-in text-white text-xl"></i>
+                            </a>
+                            <a href="mailto:dimitrievblagoj@icloud.com" class="glass w-12 h-12 rounded-full flex items-center justify-center hover:glow transition">
+                                <i class="fas fa-envelope text-white text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="glass rounded-3xl p-8">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-white mb-2 font-semibold flex items-center">
+                                <i class="fas fa-user text-purple-400 mr-2"></i>
+                                Name
+                            </label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-3 rounded-xl bg-white bg-opacity-5 border-2 border-white border-opacity-10 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:bg-opacity-10 transition shadow-sm">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-white mb-2 font-semibold flex items-center">
+                                <i class="fas fa-envelope text-purple-400 mr-2"></i>
+                                Email
+                            </label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-3 rounded-xl bg-white bg-opacity-5 border-2 border-white border-opacity-10 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:bg-opacity-10 transition shadow-sm">
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-white mb-2 font-semibold flex items-center">
+                                <i class="fas fa-tag text-purple-400 mr-2"></i>
+                                Subject
+                            </label>
+                            <input type="text" id="subject" name="subject" required
+                                   class="w-full px-4 py-3 rounded-xl bg-white bg-opacity-5 border-2 border-white border-opacity-10 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:bg-opacity-10 transition shadow-sm">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-white mb-2 font-semibold flex items-center">
+                                <i class="fas fa-comment text-purple-400 mr-2"></i>
+                                Message
+                            </label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="w-full px-4 py-3 rounded-xl bg-white bg-opacity-5 border-2 border-white border-opacity-10 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:bg-opacity-10 transition resize-none shadow-sm"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary px-8 py-4 rounded-xl text-white font-semibold">
+                            <span id="button-text">Send Message</span>
+                            <i id="button-icon" class="fas fa-paper-plane ml-2"></i>
+                        </button>
+
+                        <div id="form-message" class="hidden p-4 rounded-xl text-center font-semibold"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 relative z-10 border-t border-white border-opacity-10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                &copy; 2025 Blagoj Dimitriev. All rights reserved.
+            </p>
+            <p class="text-gray-500 text-sm mt-2">
+                Built with Tailwind CSS & Vanilla JavaScript
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
