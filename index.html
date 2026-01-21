@@ -11,6 +11,16 @@
 
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Verify EmailJS loaded
+        window.addEventListener('load', function() {
+            if (typeof emailjs === 'undefined') {
+                console.error('EmailJS library failed to load. Please check your internet connection.');
+            } else {
+                console.log('EmailJS library loaded successfully');
+            }
+        });
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,6 +201,7 @@
             mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .card-hover:hover {
@@ -204,6 +215,22 @@
 
         .dark .card-hover:hover {
             box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4), 0 0 80px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Ensure links inside cards are clickable */
+        .card-hover a {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Style anchor tags that are cards */
+        a.card-hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a.card-hover:hover {
+            text-decoration: none;
         }
 
         /* Skill bar animation */
@@ -657,29 +684,29 @@
                     </div>
 
                     <div class="space-y-6">
-                        <div class="glass rounded-2xl p-6 flex items-center card-hover border border-purple-500/20 hover:border-purple-500/40 transition-all">
+                        <a href="mailto:dimitrievblagoj@icloud.com" class="glass rounded-2xl p-6 flex items-center card-hover border border-purple-500/20 hover:border-purple-500/40 transition-all block">
                             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mr-4 shadow-lg">
                                 <i class="fas fa-envelope text-white text-xl"></i>
                             </div>
                             <div>
                                 <p class="text-gray-400 text-sm font-medium mb-1">Email</p>
-                                <a href="mailto:dimitrievblagoj@icloud.com" class="text-white font-semibold hover:text-purple-400 transition">
+                                <p class="text-white font-semibold hover:text-purple-400 transition">
                                     dimitrievblagoj@icloud.com
-                                </a>
+                                </p>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="glass rounded-2xl p-6 flex items-center card-hover border border-pink-500/20 hover:border-pink-500/40 transition-all">
+                        <a href="tel:+38975256877" class="glass rounded-2xl p-6 flex items-center card-hover border border-pink-500/20 hover:border-pink-500/40 transition-all block">
                             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mr-4 shadow-lg">
                                 <i class="fas fa-phone text-white text-xl"></i>
                             </div>
                             <div>
                                 <p class="text-gray-400 text-sm font-medium mb-1">Phone</p>
-                                <a href="tel:+38975256877" class="text-white font-semibold hover:text-purple-400 transition">
+                                <p class="text-white font-semibold hover:text-purple-400 transition">
                                     +389 75 256 877
-                                </a>
+                                </p>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="pt-6">
