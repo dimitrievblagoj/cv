@@ -1,7 +1,45 @@
 // Initialize EmailJS with your public key
 // IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
 // Get it from: https://dashboard.emailjs.com/admin/account
-emailjs.init('F3S68WTih-P3e8Y0A');
+const EMAILJS_PUBLIC_KEY = 'F3S68WTih-P3e8Y0A';
+const EMAILJS_SERVICE_ID = 'service_nfxoune';
+const EMAILJS_TEMPLATE_ID = 'template_ciw7xk9';
+
+let emailjsReady = false;
+let initAttempts = 0;
+const MAX_INIT_ATTEMPTS = 50; // 5 seconds max
+
+// Wait for EmailJS to be loaded and then initialize
+function initEmailJS() {
+    initAttempts++;
+    
+    if (typeof emailjs !== 'undefined') {
+        try {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+            emailjsReady = true;
+            console.log('✅ EmailJS initialized successfully');
+            console.log('Service ID:', EMAILJS_SERVICE_ID);
+            console.log('Template ID:', EMAILJS_TEMPLATE_ID);
+        } catch (error) {
+            console.error('❌ EmailJS initialization error:', error);
+            emailjsReady = false;
+        }
+    } else if (initAttempts < MAX_INIT_ATTEMPTS) {
+        // Retry after 100ms
+        setTimeout(initEmailJS, 100);
+    } else {
+        console.error('❌ EmailJS library failed to load after multiple attempts');
+        emailjsReady = false;
+    }
+}
+
+// Initialize EmailJS when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmailJS);
+} else {
+    // DOM is already ready
+    setTimeout(initEmailJS, 100);
+}
 
 // Theme Toggle
 const themeToggle = document.getElementById('theme-toggle');
@@ -58,7 +96,7 @@ mobileMenuLinks.forEach(link => {
     });
 });
 
-// Smooth Scrolling for Navigation Links
+// Smooth Scrolling for Navigation Links (only for hash links, not mailto/tel)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -169,58 +207,106 @@ const formMessage = document.getElementById('form-message');
 const buttonText = document.getElementById('button-text');
 const buttonIcon = document.getElementById('button-icon');
 
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    // Get form data
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
+        // Check if EmailJS is ready
+        if (!emailjsReady || typeof emailjs === 'undefined') {
+            showMessage('Email service is still loading. Please wait a moment and try again.', 'error');
+            console.error('EmailJS is not ready yet');
+            return;
+        }
 
-    // Show loading state
-    buttonText.textContent = 'Sending...';
-    buttonIcon.classList.remove('fa-paper-plane');
-    buttonIcon.classList.add('fa-spinner', 'fa-spin');
-    contactForm.classList.add('loading');
+        // Get form data
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
 
-    try {
-        // IMPORTANT: Configure your EmailJS service
-        // 1. Go to https://www.emailjs.com/
-        // 2. Create an account and email service
-        // 3. Create an email template with variables: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
-        // 4. Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' below
+        // Validate form data
+        if (!name || !email || !subject || !message) {
+            showMessage('Please fill in all fields.', 'error');
+            return;
+        }
 
-        const response = await emailjs.send(
-            'service_nfxoune',  // Replace with your EmailJS service ID
-            'template_gtakz3e', // Replace with your EmailJS template ID
-            {
+        // Show loading state
+        if (buttonText) buttonText.textContent = 'Sending...';
+        if (buttonIcon) {
+            buttonIcon.classList.remove('fa-paper-plane');
+            buttonIcon.classList.add('fa-spinner', 'fa-spin');
+        }
+        contactForm.classList.add('loading');
+
+        try {
+            // IMPORTANT: Configure your EmailJS service
+            // 1. Go to https://www.emailjs.com/
+            // 2. Create an account and email service
+            // 3. Create an email template with variables: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
+            // 4. Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' below
+
+            console.log('📧 Sending email via EmailJS...');
+            console.log('Service ID:', EMAILJS_SERVICE_ID);
+            console.log('Template ID:', EMAILJS_TEMPLATE_ID);
+            
+            const templateParams = {
                 from_name: name,
                 from_email: email,
                 subject: subject,
                 message: message,
-                to_email: 'dimitrievblagoj@icloud.com' // Your email
+                to_email: 'dimitrievblagoj@icloud.com'
+            };
+            
+            console.log('Template params:', templateParams);
+            
+            const response = await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                templateParams
+            );
+
+            console.log('Email sent successfully!', response);
+            // Success
+            showMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
+            contactForm.reset();
+
+        } catch (error) {
+            // Error
+            console.error('EmailJS Error Details:', error);
+            console.error('Error Code:', error.status);
+            console.error('Error Text:', error.text);
+            
+            let errorMessage = 'Oops! Something went wrong. ';
+            if (error.status === 0) {
+                errorMessage += 'Please check your internet connection.';
+            } else if (error.text) {
+                errorMessage += error.text;
+            } else {
+                errorMessage += 'Please try again or email me directly at dimitrievblagoj@icloud.com';
             }
-        );
-
-        // Success
-        showMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
-        contactForm.reset();
-
-    } catch (error) {
-        // Error
-        console.error('EmailJS Error:', error);
-        showMessage('Oops! Something went wrong. Please try again or email me directly.', 'error');
-    } finally {
-        // Reset button state
-        buttonText.textContent = 'Send Message';
-        buttonIcon.classList.remove('fa-spinner', 'fa-spin');
-        buttonIcon.classList.add('fa-paper-plane');
-        contactForm.classList.remove('loading');
-    }
-});
+            
+            showMessage(errorMessage, 'error');
+        } finally {
+            // Reset button state
+            if (buttonText) buttonText.textContent = 'Send Message';
+            if (buttonIcon) {
+                buttonIcon.classList.remove('fa-spinner', 'fa-spin');
+                buttonIcon.classList.add('fa-paper-plane');
+            }
+            contactForm.classList.remove('loading');
+        }
+    });
+} else {
+    console.warn('Contact form not found');
+}
 
 function showMessage(text, type) {
+    if (!formMessage) {
+        console.error('Form message element not found');
+        alert(text); // Fallback to alert
+        return;
+    }
+    
     formMessage.textContent = text;
     formMessage.classList.remove('hidden', 'bg-green-500', 'bg-red-500');
 
@@ -230,9 +316,14 @@ function showMessage(text, type) {
         formMessage.classList.add('bg-red-500', 'text-white');
     }
 
+    // Scroll to message
+    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
     // Hide message after 5 seconds
     setTimeout(() => {
-        formMessage.classList.add('hidden');
+        if (formMessage) {
+            formMessage.classList.add('hidden');
+        }
     }, 5000);
 }
 
@@ -352,3 +443,30 @@ const aboutObserver = new IntersectionObserver((entries) => {
 if (aboutSection) {
     aboutObserver.observe(aboutSection);
 }
+
+// EmailJS Test Function - Run this in console to test: testEmailJS()
+window.testEmailJS = function() {
+    console.log('🧪 Testing EmailJS Configuration...');
+    console.log('EmailJS Ready:', emailjsReady);
+    console.log('EmailJS Library:', typeof emailjs !== 'undefined' ? '✅ Loaded' : '❌ Not Loaded');
+    console.log('Public Key:', EMAILJS_PUBLIC_KEY);
+    console.log('Service ID:', EMAILJS_SERVICE_ID);
+    console.log('Template ID:', EMAILJS_TEMPLATE_ID);
+    
+    if (!emailjsReady) {
+        console.error('❌ EmailJS is not ready. Check initialization.');
+        return;
+    }
+    
+    if (typeof emailjs === 'undefined') {
+        console.error('❌ EmailJS library is not loaded.');
+        return;
+    }
+    
+    console.log('✅ Configuration looks good!');
+    console.log('💡 If emails still fail, check:');
+    console.log('   1. Service ID is correct in EmailJS dashboard');
+    console.log('   2. Template ID is correct in EmailJS dashboard');
+    console.log('   3. Template variables match: from_name, from_email, subject, message, to_email');
+    console.log('   4. Email service is activated in EmailJS dashboard');
+};
